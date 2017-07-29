@@ -105,12 +105,12 @@ Only 1 flag can be set from the following list
 | flag                     | Description                                                            |
 | -------------------------|------------------------------------------------------------------------|
 | `-all`                   | All tables will be dropped if they exist & (re)created                 |
-| -1 |or| -roms_info       | Only roms_info will be dropped if it exists & (re)created              |
-| -2 |or| -roms_tech       | Only roms_tech will be dropped if it exists & (re)created              |
-| -3 |or| -roms_displays   | Only roms_displays will be dropped if it exists & (re)created          |
-| -4 |or| -roms_controls   | Only roms_controls will be dropped if it exists & (re)created          |
-| -5 |or| -manufacturers   | Only manufacturers will be dropped if it exists & (re)created          |
-| -6 |or| -p1i             | Only p1i will be dropped if it exists & (re)created                    |
+| -1 (or) -roms_info       | Only roms_info will be dropped if it exists & (re)created              |
+| -2 (or) -roms_tech       | Only roms_tech will be dropped if it exists & (re)created              |
+| -3 (or) -roms_displays   | Only roms_displays will be dropped if it exists & (re)created          |
+| -4 (or) -roms_controls   | Only roms_controls will be dropped if it exists & (re)created          |
+| -5 (or) -manufacturers   | Only manufacturers will be dropped if it exists & (re)created          |
+| -6 (or) -p1i             | Only p1i will be dropped if it exists & (re)created                    |
 
 *This process should only take seconds*
 
@@ -141,12 +141,12 @@ Only 1 flag can be set from the following list
 
 | flag                     | Description                                   |
 | -------------------------|-----------------------------------------------|
-| -1 |or| -roms_info       | Only roms_info will be populated              |
-| -2 |or| -roms_tech       | Only roms_tech will be populated              |
-| -3 |or| -roms_displays   | Only roms_displays will be populated          |
-| -4 |or| -roms_controls   | Only roms_controls will be populated          |
-| -5 |or| -manufacturers   | Only manufacturers will be populated          |
-| -6 |or| -p1i             | Only p1i will be populated                    |
+| -1 (or) -roms_info       | Only roms_info will be populated              |
+| -2 (or) -roms_tech       | Only roms_tech will be populated              |
+| -3 (or) -roms_displays   | Only roms_displays will be populated          |
+| -4 (or) -roms_controls   | Only roms_controls will be populated          |
+| -5 (or) -manufacturers   | Only manufacturers will be populated          |
+| -6 (or) -p1i             | Only p1i will be populated                    |
 
 **You may find that it takes several seconds for the initial data to be imported from the JSON model. The write process takes 
 a lot longer and it appears to go very slowly to start with. I would expect (or certainly from what I have experienced) that 
