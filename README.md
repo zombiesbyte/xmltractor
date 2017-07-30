@@ -266,7 +266,7 @@ http://retro.zombiesbyte.com
 ![Image](../master/images/screen-shot-controls-and-manufacturers-tables.jpg/?raw=true)
 
 ###### Fig.5 p1i table
-(this is for the P1-illustrated project) *Project coming soon*
+(this is for the P1-illustrated project) [*Project coming soon*](https://github.com/zombiesbyte/p1-illustrated)
 ![Image](../master/images/screen-shot-p1i-table.jpg/?raw=true)
 
 ## 2.1. Introduction
