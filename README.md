@@ -1,11 +1,17 @@
 # XMLtractor
 *XML Extractor for MAME's XML*
 
-## Overview
+###Contents
+#### 1. General Information
+[Overview](#overview)
+#### 2. Reference
+
+
+## 1.1. Overview
 This project started from something I required for another project. I was initially intended to be a quick script that extracted some very 
 basic information. After hitting some problems with extracting the 'not so simple' data I decided to just keep going with it :)
 
-## A quick note before I begin
+## 1.2. A quick note before I begin
 The project simply uses an XML file that can be exported from mame application via the command line. Since I’m using Windows as my working 
 environment every example is presented as compatible with that. Linux/Mac users should not find any issues translating any of these commands 
 or actions.
@@ -25,7 +31,7 @@ of its full catalogue. The arrow / right angle bracket asks the windows terminal
 end up being spewed out across the screen to a chosen filename instead. You can replace mame-list.xml with your own filename. If you browse 
 using windows explorer to the location of your Mame install you should now see your newly generated file (mame-list.xml).
 
-## Node.js
+## 1.3. Node.js
 Since this is a Node project I’m going to assume you have node installed. Simply run the following npm (Node Package Manager) command to make 
 sure that the packages/modules are installed and up-to-date. Since you’re likely to already be in this directory if you’ve cloned the files 
 I’ll not bother asking that you cd into it first... (I think I technically did ask you there)
@@ -34,17 +40,17 @@ I’ll not bother asking that you cd into it first... (I think I technically did
 
 *There aren’t many dependencies so it won’t take long*
 
-## Preparing
+## 1.4. Preparing
 Now is an appropriate time to give an overview of the project structure. You should be able to see that there are the following directories:
 * db
 * exports
 * imports
 
-## db directory
+## 1.5. Db directory
 This is where the end result of the project should be. I have already included a roms.db which you can use and is generated from version 187 
 of mame. Later versions may be released but running this project through node will give you full control to produce your own. 
 
-## exports directory
+## 1.6. Exports directory
 This folder contains all of the initial exports. The XML file from Mame is subjectively viewed to extract some information. We also use 
 Catver.ini and nPlayers.ini for further injection of information (see Imports below for more information).
 
@@ -55,7 +61,7 @@ It is also worth noting that at this stage in the process which is populated aft
 more useful to you than in DB format then you can use these files as the process of data extraction has been fully completed by this part. The 
 remaining two node files create and write simply convert the JSON data model/object into SQLite inserts.
 
-## imports directory
+## 1.7. Imports directory
 This folder holds all the information that is to be imported for the initial read.js to… well read :)
 It is necessary that the Catver.ini and nPlayers.ini files remain here and please do stop by [progettosnaps.net](http://www.progettosnaps.net) 
 and [arcadebelgium.be](http://nplayers.arcadebelgium.be) (respectfully) for your up-to-date versions of these files. However, the process will 
@@ -65,8 +71,8 @@ I have included a -listxml export in a zipped file if you also want to skip the 
 
 **You will need to extract this file before it can be used.**
 
-## The 3 steps
-### Read
+## 1.8. The 3 steps
+### 1.8.1 Read
 The first step is simply to read the information. The script takes care of the information and generates the output in JSON format. You 
 simply need to run the following command.
 
@@ -74,7 +80,7 @@ simply need to run the following command.
 
 *After approximately 2-4 minutes the application should return you back to the command line with hopefully no errors.*
 
-### Create
+### 1.8.2 Create
 This is the second step and is used to setup the database structure. Please note that the default filename for the db is *roms.db*. You 
 will see that you can create your own but it is worth mentioning now so that you can keep your own generated db safe.
 
@@ -118,7 +124,7 @@ Only 1 flag can be set from the following list
 option from above is to simply pass the -all flag to have them all created. If you wish to only work on a small portion of the 
 data then these other flags allow you to be more specific.**
 
-### Write
+### 1.8.3 Write
 Now that we have our database tables setup and the tables we are going to write to created we can run our write application.
 
 The parameters are similar from the ones above excluding the *-all* flag. This has been excluded for now on the write process.
@@ -153,7 +159,7 @@ a lot longer and it appears to go very slowly to start with. I would expect (or 
 this takes anywhere from 1-4 minutes to complete. The progress appears to only increase by 1 each time until it nears the end 
 of the process where the entire write happens very quickly. Please be patient.**
 
-## Viewing the Results
+## 1.9. Viewing the Results
 There are many ways to view SQLite databases. My personal preference for now is to download and install a free application 
 called [SQLite Database Browser](http://sqlitebrowser.org/). This tool allows you to run and save your own queries as well as 
 view and search columns (with filter option).
@@ -162,11 +168,11 @@ Thanks, Dal1980
 
 http://retro.zombiesbyte.com
 
-# Reference 
+# 2. Reference 
 
 **The following sections are for reference only and delve deeper into the thought process on how (and why) the data is extracted.**
 
-## Introduction
+## 2.1. Introduction
 
 The task of extracting some of this information has been difficult in some steps. The idea behind why I’ve gone down particular paths 
 or provided information based on a logical speculation is so that this can be used in systems like front-ends. Having boundaries for 
@@ -179,7 +185,7 @@ to be so if I am trying to explain the details. Please feel free to correct me o
 The method I’ll use to describe each field is in the order that read.js works through it. If I miss a field then I will have probably 
 not used it in the data extraction process. Some fields are more complex than others… let’s begin
 
-### Notes
+### 2.1.1. Notes
 The XML contains a lot of information, sometimes the information we find for one entry can be quite different to the amount of information 
 from another. To make matters worse, this information can be expressed in all sorts of different ways and I have tried my best to catch a 
 wide array of possibilities. Sometimes this information is illogically formatted and it would be impossible for the extraction to take place 
@@ -188,20 +194,20 @@ once they have been all compiled and a case put forward for approval (or at leas
 
 *It’s great that the first 6 fields are my weakest entries.*
 
-## sourcefile
+## 2.2. sourcefile
 Not sure exactly.
-## sampleof
+## 2.3. sampleof
 Not sure exactly.
-## cloneof
+## 2.4. cloneof
 If this is a clone of a parent then the parent sourcefile will be shown here I think.
-## romof
+## 2.5. romof
 Not sure exactly.
-## isdevice
+## 2.6. isdevice
 If the system is a device.
-## runnable
+## 2.7. runnable
 I assume this is if the emulation is possible. In terms of it being practical. Not 100% sure.  
 
-## description
+## 2.8. description
 This seems to be a field that is a dumping ground for various information. I have managed to identify the following data types 
 from this field:
 * Description (a full name of the rom/system)
@@ -228,12 +234,12 @@ from the XML but rather extrapolated from assumptions of existing data.
 Mame XML example
 `<description>9-Ball Shootout (set 3)</description>`
 
-## year
+## 2.9. year
 This is generally a straightforward entry. Sometimes there are question marks placed over the units of the year to illustrate that the 
 exact year is not known. Since this database is meant to provide some consistencies, I have opted to use an integer field type and set 
 any question marks to a zero.
 
-## manufacturer
+## 2.10. manufacturer
 Sometimes this field hold 1 manufacturer while other times it can hold many manufacturers. One part of this information sometimes reveals 
 the company name that holds the license. All this information is extracted. We also need to clean up the slight differences in how we use 
 "limited" for example as Mame’s XML hold many different ways of showing the common abbreviations. The corrections on this are quite 
@@ -246,7 +252,9 @@ For example
 * An Example Company Name, ltd.
 * An Example Company Name limited
 * An Example Company Name,ltd
+
 Become
+
 * An Example Company Name Ltd
 
 This helps on condensing the slight variations in the titles
@@ -257,7 +265,9 @@ For example
 * An Example Company Name
 * An Example Company limited
 * An Example of Company ,ltd
+
 Become
+
 * An Example Company Name
 * An Example Company Ltd
 * An Example of Company Ltd
@@ -270,28 +280,28 @@ The bootleg flag has also been determined from this field.
 
 total_manufacturers is recorded in the JSON model only and is a tally of how many manufacturers there are in a particular entry.
 
-## Display Information
-## (display) tag
+## 2.11. Display Information
+## 2.12. (display) tag
 Each display is given a tag. I’m no sure where the tag comes from but maybe buried deep in the source code. It may also be something 
 physical like a sticker but regardless, this is used in identifying between more than one screen if present.
-## (display) type
+## 2.13. (display) type
 Possible values (to date): "lcd", "raster", "unknown" or "vector".
-## (display) rotate
+## 2.14. (display) rotate
 Possible values (to date): “null”, "0", "90", "180" and "270".
 The rotation of the screen. This gives us a clue on the orientation although it is not known why you would rotate a screen 180 or 
 270 since this places the screen up-side-down while 0 and 90 would be enough to change the orientation.
-## (display) width
+## 2.15. (display) width
 The pixel width of the screen (this gives us a good indication of resolution)
-## (display) height
+## 2.16. (display) height
 The pixel height of the screen (this gives us a good indication of resolution)
-## (display) refresh
+## 2.17. (display) refresh
 A floating-point value to the native refresh rate.
-## (display) pixclock
+## 2.18. (display) pixclock
 Uknown what this field does exactly but I was informed that is it useful together with the other information about the display.
 
 total_displays is recorded in the JSON model only and is a tally of how many displays there are in a particular entry.
 
-## (driver) status
+## 2.19. (driver) status
 The status field is a general field that tells us the overall status of the emulation as a whole. This field shows the lowest 
 denominating factor in emulation, color, sound and graphic. The status field is useful for quickly targeting those entries 
 which are regarded as being in perfect working order.
@@ -301,27 +311,27 @@ I use a numeric system to symbolise the following states
 * 2: Imperfect
 * 3: Good
 
-## (driver) emulation
+## 2.20. (driver) emulation
 How successful the rom emulation is regarded in its current form
 
 *See (driver) status for more information*
 
-## (driver) color
+## 2.21. (driver) color
 How successful the colour emulation is regarded in its current form
 
 *See (driver) status for more information*
 
-## (driver) sound
+## 2.22. (driver) sound
 How successful the sound emulation is regarded in its current form
 
 *See (driver) status for more information*
 
-## (driver) graphic
+## 2.23. (driver) graphic
 How successful the graphic emulation is regarded in its current form
 
 *See (driver) status for more information*
 
-## (driver) savestate
+## 2.24. (driver) savestate
 This field is set to show if Mame supports saving and loading of the game state. I believe this is something of a Mame feature 
 rather than something that existed on the original system.
 
@@ -330,7 +340,7 @@ The possible flags are:
 * 0 – not supported
 * 1 – supported
 
-# Input Overview
+## 2.25. Input Overview
 This set of information has been a little disappointing for me personally. Due to the different perspectives on the hardware as a 
 whole versus the specifics of the rom the information gathered has leant towards profiling the full hardware capabilities rather 
 than the specifics of what was used.
@@ -345,24 +355,24 @@ recorded within the XML. (can someone confirm that this is indeed correct?)
 The following two sections show information about the control panel (or system inputs for peripheral control) (I’m not sure if I 
 phrased that right so feel free to correct me)
 
-## (input) players
+## 2.26. (input) players
 The total number of players the system allows.
-## (input) coins
+## 2.27. (input) coins
 The number of coin slots the system had
-## (input) service
+## 2.28. (input) service
 If there was a service button present (for admin)
-## (input) tilt
+## 2.29. (input) tilt
 If there was a tilt mechanism present. I think this was attached to visual or audio alarm (or both). Possibly worked the same as 
 a tilt mechanism on a pinball machine. Did people really try and move arcades? This field opens up a discussion the more I think 
 about it. I haven’t checked if this field only appears on pinball machines so might be self-explanatory. 
 
-## The following sub-sections may have multiple occurrences to describe each of the inputs on a machine. The tags will only be 
+## 2.30. The following sub-sections may have multiple occurrences to describe each of the inputs on a machine. The tags will only be 
 partially used for each entry as some devices do not require that type of tag to be included. For instance, ways2 is only used 
 on "doublejoy" entries as it describes the second joy way points.
 
-### (input) player
+### 2.30.1. (input) player
 The player number that this entry refers to. i.e. 1 (player 1) could have multiple inputs.
-### (input) controls
+### 2.30.2. (input) controls
 The ‘type’ of controls. Possible values and descriptions follow:
 * "stick" - an alologue registered stick
 * "positional" - I’m still not sure on this one, some kind of twisty joystick or something (flight control maybe?)
@@ -383,12 +393,12 @@ but with a bigger ball.
 a system that understood the input of 3 joys as a single input. This would have more than likely belonged to a system that 
 enabled up to 3 players to play at the same time. I’m not sure though.
 
-### (input) buttons
+### 2.30.3. (input) buttons
 The total number of buttons. It is not specific to the control type so these may be buttons on a joystick or regular buttons 
 on the control panel or even a mixture of both. We are not even sure if the control panel used the total amount of buttons 
 shown (*see Input Overview for more information*)
 
-### (input) ways
+### 2.30.4. (input) ways
 The available (or allowable) directions that a joy can travel on its axis. These sometimes used restrictor plates if it was 
 more elaborate restrictions needed.
 
@@ -409,42 +419,33 @@ was there a strange1 and possibly even a strange3 that became reclassified after
 * "vertical2" is up + down rather than the default left + right 2-way
 * "16" way is a up, down, left, right joystick with 12 other button inputs. As far as I can tell 16-way is pretty much only used 
 on Tomy and Entex hardware which is reserved for domestic handheld use.
-### (input) ways2
+### 2.30.5. (input) ways2
 The second joy ways for instances where doublejoy is the control type. See (input) ways for more information
-### (input) minimum
+### 2.30.6. (input) minimum
 Some measurement of minimum restriction. It may be degrees for things that turn/spin or it may be the threshold measurement 
 boundary for registering movement.
-### (input) maximum
+### 2.30.7. (input) maximum
 See above
-### (input) sensitivity
+### 2.30.8. (input) sensitivity
 The sensitivity may control the threshold registrations for movement. I imagine that minimum and maximum also play a role in 
 this in some configurations. It may simply be a step value.
-### (input) keydelta
+### 2.30.9. (input) keydelta
 Absolutely no idea what this is.
-### (input) reverse
+### 2.30.10. (input) reverse
 I imagine this is when up is down and down is up for such things as flight sticks, or perhaps it has something to do with 
 control panel layout. I’m not sure.
-### total_inputs
+### 2.30.11. total_inputs
 Recorded in the JSON model only and is a tally of how many inputs there are in a particular entry.
 
-# Catver.ini
+## 2.31. Catver.ini Overview
 The file is used to match against our full list of items. The data is then separated into the following properties
-## primary
+### 2.31.1. primary
 Catver.ini chosen primary category
-## secondary
+### 2.31.2. secondary
 Catver.ini chosen secondary category
-## mature
+### 2.31.3. mature
 This holds a flag of true if it has been marked as mature according to Catver.ini
 
-# nPlayers.ini
-## nplayers
+## 2.32. nPlayers.ini Overview
+### 2.32.1 nplayers
 Field contains the same entry as found in nPlayers.ini
-
-
-
-
- 
-
-
-
-
