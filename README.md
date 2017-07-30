@@ -16,6 +16,11 @@
     - [1.8.3 Write](#183-write)
 - [1.9. Viewing the Results](#19-viewing-the-results)
 #### 2. Reference
+- [Fig.1 roms_info Table](#fig1-roms_info-table)
+- [Fig.2 roms_tech Table](#fig2-roms_tech-table)
+- [Fig.3 roms_displays Table](#fig3-roms_displays-table)
+- [Fig.4 roms_controls & manufacturers Table](#fig4-roms_controls-table-manufacturers-table)
+- [Fig.5 p1i Table](#fig5-p1i-table)
 - [2.1. Introduction](#21-introduction)
     - [2.1.1. Notes](#211-notes)
 - [2.2. sourcefile](#22-sourcefile)
@@ -244,9 +249,25 @@ http://retro.zombiesbyte.com
 ---
 
 
-# 2. Reference 
+# 2. Reference
 
 **The following sections are for reference only and delve deeper into the thought process on how (and why) the data is extracted.**
+
+###### Fig.1 roms_info table
+![Image](../screen-shot-info-table.jpg/?raw=true)
+
+###### Fig.2 roms_tech table
+![Image](../screen-shot-tech-table.jpg/?raw=true)
+
+###### Fig.3 roms_displays table
+![Image](../screen-shot-displays-table.jpg/?raw=true)
+
+###### Fig.4 roms_controls table & manufacturers table
+![Image](../screen-shot-controls-and-manufacturers-tables.jpg/?raw=true)
+
+###### Fig.5 p1i table
+(this is for the P1-illustrated project) *Project coming soon*
+![Image](../screen-shot-p1i-table.jpg/?raw=true)
 
 ## 2.1. Introduction
 ###### [^ Back to Top](#contents "Back to Top")
