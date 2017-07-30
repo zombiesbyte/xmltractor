@@ -683,7 +683,7 @@ function determineGenericP1Illustrated(){
                             * "joy","8iacenw"  8 way (l, ul+ur,dl+dr) north-west
                             * "joy","8iacene"  8 way (l, ul+ur,dl+dr) north-west
 
-                            * "astick" - an alologue registered stick
+                            * "stick" - an alologue registered stick
                             * "posstick" - oh dear, still not sure on this one, some kind of twisty joystick or something (flight control?)
                 hmmm ->* "doublejoy - left and right hand joystick
                             * "pedal" - sprung return analogue
@@ -939,6 +939,7 @@ function extractRev(currentRom, descStr){
         places[17]['setas'] = "Australia"; 
         places[18]['regex'] = /(\bcanada\b)/gi;
         places[18]['setas'] = "Canada";
+        //need to add: Brazil
 
         for(var x = 0; x < places.length; x++ ){
             var worldSearch = /(\bworld\b)/gi;

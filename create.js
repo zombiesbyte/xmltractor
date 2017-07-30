@@ -145,6 +145,7 @@ function create_roms_info_table(){
             "`bootleg`          INTEGER DEFAULT 0," +
             "`region`           TEXT," +
             "`setnum`           TEXT," +
+            "`rev`              TEXT," +
             "`ver`              TEXT," +
             "PRIMARY KEY(`name`)" +
         ");"

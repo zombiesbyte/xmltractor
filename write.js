@@ -271,11 +271,11 @@ function insert_roms_info_table(romName){
         "INSERT INTO `roms_info`" + 
         "(  `name`, `desc_1`, `desc_2`, `year`, `players`, `nplayers`, `displays`, `status`," +
         "   `cat_primary`, `cat_secondary`, `manufacturer_1`, `licensee`, `mature`," +
-        "   `bootleg`, `region`, `setnum`, `ver` ) " +
+        "   `bootleg`, `region`, `setnum`, `rev`, `ver` ) " +
         "VALUES " +
         "(  $name, $desc_1, $desc_2, $year, $players, $nplayers, $displays, $status," +
         "   $cat_primary, $cat_secondary, $manufacturer_1, $licensee, $mature," +
-        "   $bootleg, $region, $setnum, $ver )", {
+        "   $bootleg, $region, $setnum, $rev, $ver )", {
             $name:              romName,
             $desc_1:            roms[romName].description_part_1,
             $desc_2:            roms[romName].description_part_2,
@@ -291,7 +291,8 @@ function insert_roms_info_table(romName){
             $mature:            roms[romName].categories.mature,
             $bootleg:           roms[romName].bootleg,
             $region:            roms[romName].region,
-            $setnum:            roms[romName].set,  
+            $setnum:            roms[romName].set,
+            $rev:               roms[romName].rev,  
             $ver:               roms[romName].ver
         }, function(err){
             errorlog += "\n" + err;
