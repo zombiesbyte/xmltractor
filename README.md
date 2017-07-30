@@ -254,20 +254,20 @@ http://retro.zombiesbyte.com
 **The following sections are for reference only and delve deeper into the thought process on how (and why) the data is extracted.**
 
 ###### Fig.1 roms_info table
-![Image](../images/screen-shot-info-table.jpg/?raw=true)
+![Image](../master/images/screen-shot-info-table.jpg/?raw=true)
 
 ###### Fig.2 roms_tech table
-![Image](../images/screen-shot-tech-table.jpg/?raw=true)
+![Image](../master/images/screen-shot-tech-table.jpg/?raw=true)
 
 ###### Fig.3 roms_displays table
-![Image](../images/screen-shot-displays-table.jpg/?raw=true)
+![Image](../master/images/screen-shot-displays-table.jpg/?raw=true)
 
 ###### Fig.4 roms_controls table & manufacturers table
-![Image](../images/screen-shot-controls-and-manufacturers-tables.jpg/?raw=true)
+![Image](../master/images/screen-shot-controls-and-manufacturers-tables.jpg/?raw=true)
 
 ###### Fig.5 p1i table
 (this is for the P1-illustrated project) *Project coming soon*
-![Image](../images/screen-shot-p1i-table.jpg/?raw=true)
+![Image](../master/images/screen-shot-p1i-table.jpg/?raw=true)
 
 ## 2.1. Introduction
 ###### [^ Back to Top](#contents "Back to Top")
