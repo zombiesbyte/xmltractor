@@ -3,9 +3,70 @@
 
 ###Contents
 #### 1. General Information
-[Overview](#overview)
+- [1.1. Overview](#)
+- [1.2. A quick note before I begin](#)
+- [1.3. Node.js](#)
+- [1.4. Preparing](#)
+- [1.5. Db directory](#)
+- [1.6. Exports directory](#)
+- [1.7. Imports directory](#)
+- [1.8. The 3 steps](#)
+    - [1.8.1 Read](#)
+    - [1.8.2 Create](#)
+    - [1.8.3 Write](#)
+- [1.9. Viewing the Results](#)
 #### 2. Reference
+- [2.1. Introduction](#)
+    - [2.1.1. Notes](#)
+- [2.2. sourcefile](#)
+- [2.3. sampleof](#)
+- [2.4. cloneof](#)
+- [2.5. romof](#)
+- [2.6. isdevice](#)
+- [2.7. runnable](#)
+- [2.8. description](#)
+- [2.9. year](#)
+- [2.10. manufacturer](#)
+- [2.11. Display Information](#)
+- [2.12. (display) tag](#)
+- [2.13. (display) type](#)
+- [2.14. (display) rotate](#)
+- [2.15. (display) width](#)
+- [2.16. (display) height](#)
+- [2.17. (display) refresh](#)
+- [2.18. (display) pixclock](#)
+- [2.19. (driver) status](#)
+- [2.20. (driver) emulation](#)
+- [2.21. (driver) color](#)
+- [2.22. (driver) sound](#)
+- [2.23. (driver) graphic](#)
+- [2.24. (driver) savestate](#)
+- [2.25. Input Overview](#)
+- [2.26. (input) players](#)
+- [2.27. (input) coins](#)
+- [2.28. (input) service](#)
+- [2.29. (input) tilt](#)
+- [2.30. Controller Inputs](#)
+    - [2.30.1. (input) player](#)
+    - [2.30.2. (input) controls](#)
+    - [2.30.3. (input) buttons](#)
+    - [2.30.4. (input) ways](#)
+    - [2.30.5. (input) ways2](#)
+    - [2.30.6. (input) minimum](#)
+    - [2.30.7. (input) maximum](#)
+    - [2.30.8. (input) sensitivity](#)
+    - [2.30.9. (input) keydelta](#)
+    - [2.30.10. (input) reverse](#)
+    - [2.30.11. total_inputs](#)
+- [2.31. Catver.ini Overview](#)
+    - [2.31.1. primary](#)
+    - [2.31.2. secondary](#)
+    - [2.31.3. mature](#)
+- [2.32. nPlayers.ini Overview](#)
+    - [2.32.1 nplayers](#)
 
+
+---
 
 ## 1.1. Overview
 This project started from something I required for another project. I was initially intended to be a quick script that extracted some very 
@@ -168,6 +229,10 @@ Thanks, Dal1980
 
 http://retro.zombiesbyte.com
 
+
+---
+
+
 # 2. Reference 
 
 **The following sections are for reference only and delve deeper into the thought process on how (and why) the data is extracted.**
@@ -253,7 +318,7 @@ For example
 * An Example Company Name limited
 * An Example Company Name,ltd
 
-Become
+Becomes
 
 * An Example Company Name Ltd
 
@@ -266,7 +331,7 @@ For example
 * An Example Company limited
 * An Example of Company ,ltd
 
-Become
+Becomes
 
 * An Example Company Name
 * An Example Company Ltd
@@ -366,7 +431,8 @@ If there was a tilt mechanism present. I think this was attached to visual or au
 a tilt mechanism on a pinball machine. Did people really try and move arcades? This field opens up a discussion the more I think 
 about it. I haven’t checked if this field only appears on pinball machines so might be self-explanatory. 
 
-## 2.30. The following sub-sections may have multiple occurrences to describe each of the inputs on a machine. The tags will only be 
+## 2.30. Controller Inputs
+The following sub-sections may have multiple occurrences to describe each of the inputs on a machine. The tags will only be 
 partially used for each entry as some devices do not require that type of tag to be included. For instance, ways2 is only used 
 on "doublejoy" entries as it describes the second joy way points.
 
