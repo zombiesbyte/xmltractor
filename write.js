@@ -22,18 +22,16 @@ console.log("    The process looks slow to start with but will quickly complete.
 console.log("");
 
 var dbName = "roms.db"; //SQLite db file (in db folder)
-var taskOp = "";
+var taskOps = [];
 
 process.argv.forEach(function (val, index) {
-  
   if(index > 1){
-    if(val == '-roms_info' || val == '-1') taskOp = "roms_info";
-    else if(val == '-roms_tech' || val == '-2') taskOp = "roms_tech";
-    else if(val == '-roms_displays' || val == '-3') taskOp = "roms_displays";
-    else if(val == '-roms_controls' || val == '-4') taskOp = "roms_controls";
-    else if(val == '-manufacturers' || val == '-5') taskOp = "manufacturers";
-    else if(val == '-p1i' || val == '-6') taskOp = "p1i";
-
+    if(val == "-all" || val == '-roms_info' || val == '-1') taskOps.push("roms_info");
+    if(val == "-all" || val == '-roms_tech' || val == '-2') taskOps.push("roms_tech");
+    if(val == "-all" || val == '-roms_displays' || val == '-3') taskOps.push("roms_displays");
+    if(val == "-all" || val == '-roms_controls' || val == '-4') taskOps.push("roms_controls");
+    if(val == "-all" || val == '-manufacturers' || val == '-5') taskOps.push("manufacturers");
+    if(val == "-all" || val == '-p1i' || val == '-6') taskOps.push("p1i");
     if(val == '-db'){
         if(typeof process.argv[index + 1] !== "undefined"){
             if(process.argv[index + 1].indexOf('-') != 1){
@@ -62,11 +60,12 @@ process.argv.forEach(function (val, index) {
    }
 });
 
-if(taskOp == ""){
+if(taskOps.length == 0){
     console.log("");
-    console.log("    ----- Available options are: -----------------------------------------");
+    console.log("    ----- Available options are: ------------------------------------------");
     console.log("    -db {filename}{.db}      ~roms.db is default if not provided.          ");
     console.log("    ------ + (only 1 of) --------------------------------------------------");
+    console.log("    -all                     ~All tables will be written                   ");
     console.log("    -1 |or| -roms_info       ~Only roms_info will be wrote                 ");
     console.log("    -2 |or| -roms_tech       ~Only roms_tech will be wrote                 ");
     console.log("    -3 |or| -roms_displays   ~Only roms_displays will be wrote             ");
@@ -186,6 +185,7 @@ if(taskOp == ""){
 
 var roms;
 var totalRoms = 0;
+var dataRoms = 0;
 var totalManufacturers = 0;
 var displaysDIDCount = 0; //(D)isplay ID
 var controlsCIDCount = 0; //(C)ontrols ID
@@ -206,6 +206,7 @@ fs.readFile('exports\\roms.json', 'utf8', function (err, data) {
     var romNames = Object.keys(roms);
     //console.log(JSON.stringify(roms, null, "\t"));
     totalRoms = romNames.length;
+    db.run("begin transaction");
     romNames.forEach( function(romName, index){
         //console.log("Preparing: " + index + " / " + totalRoms);
         updateConsole("    [ Importing: " + (index + 1) + " / " + totalRoms + " ]");
@@ -232,17 +233,18 @@ fs.readFile('exports\\roms.json', 'utf8', function (err, data) {
                 roms[romName].localisation[n] = null;
             }
         }
-        if(taskOp == "roms_info") insert_roms_info_table(romName);
-        else if(taskOp == "roms_tech") insert_roms_tech_table(romName);
-        else if(taskOp == "p1i")insert_p1i_table(romName);
-        else if(taskOp == "roms_displays"){
+
+        if(taskOps.includes("roms_info")) insert_roms_info_table(romName);
+        if(taskOps.includes("roms_tech")) insert_roms_tech_table(romName);
+        if(taskOps.includes("p1i")) insert_p1i_table(romName);
+        if(taskOps.includes("roms_displays")){
             displaysDIDCount = 0;
             for(var x = 0; x < roms[romName].total_displays; x++){
                 insert_roms_displays_table(romName, displaysDIDCount);
                 displaysDIDCount++;
             }
         }
-        else if(taskOp == "roms_controls"){
+        if(taskOps.includes("roms_controls")){
             controlsCIDCount = 0;
             for(var x = 0; x < roms[romName].total_inputs; x++){
                 insert_roms_controls_table(romName, controlsCIDCount);
@@ -250,7 +252,7 @@ fs.readFile('exports\\roms.json', 'utf8', function (err, data) {
             }
         }
     });
-    if(taskOp == "manufacturers"){
+    if(taskOps.includes("manufacturers")){
         fs.readFile('exports\\manufacturers.json', 'utf8', function (err, data) {
             if (err) throw err;
             manufacturersJSON = JSON.parse(data); //our data object
@@ -261,13 +263,22 @@ fs.readFile('exports\\roms.json', 'utf8', function (err, data) {
             });
         });
     }
+    db.run("commit");
 });
 console.log(errorlog);
 
+function insertRow(sql, params){
+    dataRoms++;
+    db.run(sql, params, function(err){
+        errorlog += "\n" + err;
+        if(countInfo == 0) console.log("");
+        countInfo++;
+        updateConsole("    [ Inserting data : " + countInfo + " / " + dataRoms + " ]");
+    });
+}
 
 function insert_roms_info_table(romName){
-    
-    db.run(
+    insertRow(
         "INSERT INTO `roms_info`" + 
         "(  `name`, `desc_1`, `desc_2`, `year`, `players`, `nplayers`, `displays`, `status`," +
         "   `cat_primary`, `cat_secondary`, `manufacturer_1`, `licensee`, `mature`," +
@@ -294,17 +305,11 @@ function insert_roms_info_table(romName){
             $setnum:            roms[romName].set,
             $rev:               roms[romName].rev,  
             $ver:               roms[romName].ver
-        }, function(err){
-            errorlog += "\n" + err;
-            if(countInfo == 0) console.log("");
-            countInfo++;
-            updateConsole("    [ Inserting Data into roms_info: " + countInfo + " / " + totalRoms + " ]");
-    });
-    //db.close();
+        });
 }
 
 function insert_roms_tech_table(romName){
-    db.run(
+    insertRow(
         "INSERT INTO `roms_tech`" + 
         "(  `name`, `localisation_1`, `localisation_2`, `localisation_3`, `localisation_4`," +
         "   `localisation_5`, `manufacturer_2`, `manufacturer_3`, `manufacturer_4`," +
@@ -338,16 +343,11 @@ function insert_roms_tech_table(romName){
             $sound:             roms[romName].sound,
             $graphic:           roms[romName].graphic,
             $savestate:         roms[romName].savestate
-        }, function(err){
-            errorlog += "\n" + err;
-            if(countInfo == 0) console.log("");
-            countInfo++;
-            updateConsole("    [ Inserting Data into roms_tech: " + countInfo + " / " + totalRoms + " ]");
-    });
+        });
 }
 
 function insert_roms_displays_table(romName, displaysDIDCount){
-    db.run(
+    insertRow(
         "INSERT INTO `roms_displays`" + 
         "(  `name`, `did`, `tag`, `type`, `rotate`, `width`, `height`, `refresh`, `pixclock` )" +
         "VALUES " +
@@ -361,16 +361,11 @@ function insert_roms_displays_table(romName, displaysDIDCount){
             $height:        roms[romName].display[ displaysDIDCount ].height,
             $refresh:       roms[romName].display[ displaysDIDCount ].refresh,
             $pixclock:      roms[romName].display[ displaysDIDCount ].pixclock
-        }, function(err){
-            errorlog += "\n" + err;
-            if(countInfo == 0) console.log("");
-            countInfo++;
-            updateConsole("    [ Inserting Data into roms_displays: " + countInfo + " ]");
-    });
+        });
 }
 
 function insert_roms_controls_table(romName, controlsIDCount){
-    db.run(
+    insertRow(
         "INSERT INTO `roms_controls`" + 
         "(  `name`, `cid`, `player`, `controls`, `buttons`, `ways`, `ways2`, `minimum`, `maximum`, `sensitivity`, `keydelta`, `reverse` )" +
         "VALUES " +
@@ -387,33 +382,23 @@ function insert_roms_controls_table(romName, controlsIDCount){
             $sensitivity:   roms[romName].input[ controlsIDCount ].sensitivity,
             $keydelta:      roms[romName].input[ controlsIDCount ].keydelta,
             $reverse:       roms[romName].input[ controlsIDCount ].reverse
-        }, function(err){
-            errorlog += "\n" + err;
-            if(countInfo == 0) console.log("");
-            countInfo++;
-            updateConsole("    [ Inserting Data into roms_controls: " + countInfo + " ]");
-    });
+        });
 }
 
 
 function insert_manufacturers_table(id, name){
-    db.run(
+    insertRow(
         "INSERT INTO `manufacturers`" + 
         "(  `id`, `manufacturer` )" +
         "VALUES " +
         "(  $id, $manufacturer )", {
             $id:              id,
             $manufacturer:    name
-        }, function(err){
-            errorlog += "\n" + err;
-            if(countManufacturers == 0) console.log("");
-            countManufacturers++;
-            updateConsole("    [ Inserting (manufacturers) ]");
-    });
+        });
 }
 
 function insert_p1i_table(romName){
-    db.run(
+    insertRow(
         "INSERT INTO `p1i`" + 
         "(  `name`, `element_1`, `element_2`, `element_3`, `element_4`," +
         "   `element_5`, `element_6`, `element_7`, `element_8`," +
@@ -433,12 +418,7 @@ function insert_p1i_table(romName){
             $element_8:     roms[romName].p1i.element_8,
             $element_9:     roms[romName].p1i.element_9,
             $version:       roms[romName].p1i.version
-        }, function(err){
-            errorlog += "\n" + err;
-            if(countInfo == 0) console.log("");
-            countInfo++;
-            updateConsole("    [ Inserting Data into p1i: " + countInfo + " / " + totalRoms + " ]");
-    });
+        });
 }
 
 
