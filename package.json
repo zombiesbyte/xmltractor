@@ -9,7 +9,7 @@
   "author": "Dal1980",
   "license": "ISC",
   "dependencies": {
-    "sqlite3": "^3.1.8",
+    "sqlite3": "^5.0.2",
     "xml-reader": "^2.4.3"
   }
 }

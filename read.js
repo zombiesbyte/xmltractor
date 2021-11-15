@@ -35,8 +35,8 @@ var currentRom = "";
 
 var manufacturersArray = []; //this stores all manufacturers as a consolidated list
 
-if (fs.existsSync('exports\\roms.json')) fs.unlink('exports\\roms.json');
-if (fs.existsSync('exports\\manufacturers.json')) fs.unlink('exports\\manufacturers.json');
+if (fs.existsSync('exports\\roms.json')) fs.unlinkSync('exports\\roms.json');
+if (fs.existsSync('exports\\manufacturers.json')) fs.unlinkSync('exports\\manufacturers.json');
 
 const reader = XmlReader.create({stream: true});
 const xml = fs.readFile('imports\\mame-187.xml', 'utf8', function (err, fileData) {
